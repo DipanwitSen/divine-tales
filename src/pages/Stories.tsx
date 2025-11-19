@@ -87,18 +87,42 @@ export default function Stories() {
       return;
     }
 
-    const utterance = new SpeechSynthesisUtterance(story.content);
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
+    // Clean the content - remove markdown symbols for better speech
+    const cleanContent = story.content
+      .replace(/\*\*\*/g, '') // Remove triple asterisks
+      .replace(/\*\*/g, '') // Remove bold markers
+      .replace(/\*/g, '') // Remove italic markers
+      .replace(/#/g, '') // Remove headers
+      .replace(/\n{3,}/g, '\n\n'); // Normalize line breaks
+
+    const utterance = new SpeechSynthesisUtterance(cleanContent);
+    utterance.rate = 0.85;
+    utterance.pitch = 1.0;
     utterance.volume = 1;
+    utterance.lang = 'en-IN'; // Indian English for better pronunciation of Indian names
     
     utterance.onend = () => {
       setIsPlaying(false);
+    };
+    
+    utterance.onerror = (event) => {
+      console.error('Speech synthesis error:', event);
+      setIsPlaying(false);
+      toast({
+        title: "Playback Error",
+        description: "Could not read the story aloud. Please try again.",
+        variant: "destructive",
+      });
     };
 
     setSpeechSynthesis(utterance);
     window.speechSynthesis.speak(utterance);
     setIsPlaying(true);
+    
+    toast({
+      title: "Reading Story",
+      description: "The story is now being read aloud.",
+    });
   };
 
   return (
