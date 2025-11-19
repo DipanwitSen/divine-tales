@@ -23,7 +23,7 @@ export default function Games() {
         .from('leaderboard')
         .select(`
           *,
-          profiles:user_id (username, level)
+          profiles!leaderboard_user_id_fkey (username, level)
         `)
         .order('score', { ascending: false })
         .limit(10);
