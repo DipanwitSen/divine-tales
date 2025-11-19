@@ -169,23 +169,51 @@ export default function Stories() {
       </div>
 
       {story && (
-        <Card className="border-primary/20 shadow-lg">
+        <Card className="border-primary/20 shadow-lg bg-gradient-to-br from-background to-secondary/20">
           <CardHeader>
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <CardTitle className="text-2xl mb-2">{story.title}</CardTitle>
-                <CardDescription>Generated wisdom for you</CardDescription>
+                <CardTitle className="text-3xl mb-2 font-serif">{story.title}</CardTitle>
+                <CardDescription>A lovable story just for you</CardDescription>
               </div>
               <div className="flex gap-2">
-                <Button variant="ghost" size="icon" onClick={toggleSpeech}>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={toggleSpeech}
+                  className="hover:bg-primary/10"
+                >
                   {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
                 </Button>
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="prose prose-slate dark:prose-invert max-w-none">
-              <p className="whitespace-pre-wrap leading-relaxed">{story.content}</p>
+            <div className="bg-background/50 p-6 rounded-lg border border-primary/10">
+              <div className="prose prose-lg prose-slate dark:prose-invert max-w-none">
+                <div className="whitespace-pre-wrap leading-relaxed text-lg font-serif text-foreground/90">
+                  {story.content}
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 flex justify-center gap-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={toggleSpeech}
+              >
+                {isPlaying ? (
+                  <>
+                    <Pause className="h-4 w-4 mr-2" />
+                    Pause Reading
+                  </>
+                ) : (
+                  <>
+                    <Play className="h-4 w-4 mr-2" />
+                    Read Aloud
+                  </>
+                )}
+              </Button>
             </div>
           </CardContent>
         </Card>

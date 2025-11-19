@@ -120,66 +120,67 @@ export default function Learning() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      <div className="text-center space-y-2">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
-          Learning Path
-        </h1>
-        <p className="text-muted-foreground">
-          Daily challenges for spiritual growth
-        </p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 dark:from-pink-950/20 dark:via-blue-950/20 dark:to-purple-950/20 py-8 px-4">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <div className="text-center space-y-2">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-pink-500 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+            ✨ Auratales ✨
+          </h1>
+          <p className="text-lg text-muted-foreground">
+            Your Daily Journey to Growth & Wisdom
+          </p>
+        </div>
 
-      <Card className="border-accent/20">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Trophy className="h-6 w-6 text-accent" />
-              <CardTitle>Your Progress</CardTitle>
+        <Card className="border-pink-200/50 dark:border-pink-800/50 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Trophy className="h-6 w-6 text-pink-500" />
+                <CardTitle>Your Progress</CardTitle>
+              </div>
+              <div className="flex items-center gap-2">
+                <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
+                <span className="text-2xl font-bold">{userProfile?.points || 0}</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Star className="h-5 w-5 text-accent fill-accent" />
-              <span className="text-2xl font-bold">{userProfile?.points || 0}</span>
-            </div>
-          </div>
-          <CardDescription>Level {userProfile?.level || 1} • {completedCount} tasks completed</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Progress value={progressPercentage} className="h-3" />
-        </CardContent>
-      </Card>
+            <CardDescription>Level {userProfile?.level || 1} • {completedCount} tasks completed</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Progress value={progressPercentage} className="h-3" />
+          </CardContent>
+        </Card>
 
-      <div className="space-y-4">
-        {tasks.map((task, index) => {
-          const progress = getTaskProgress(task.id);
-          const available = isTaskAvailable(task.id);
-          const completed = progress?.completed || false;
+        <div className="space-y-4">
+          {tasks.map((task, index) => {
+            const progress = getTaskProgress(task.id);
+            const available = isTaskAvailable(task.id);
+            const completed = progress?.completed || false;
 
-          return (
-            <Card
-              key={task.id}
-              className={`transition-all ${
-                !available ? "opacity-60" : ""
-              } ${completed ? "border-accent/30 bg-accent/5" : ""}`}
-            >
+            return (
+              <Card
+                key={task.id}
+                className={`transition-all bg-white/80 dark:bg-slate-900/80 backdrop-blur ${
+                  !available ? "opacity-60" : ""
+                } ${completed ? "border-pink-300/50 dark:border-pink-700/50 bg-pink-50/50 dark:bg-pink-950/20" : "border-blue-200/50 dark:border-blue-800/50"}`}
+              >
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       {completed ? (
-                        <Check className="h-5 w-5 text-accent" />
+                        <Check className="h-5 w-5 text-pink-500" />
                       ) : !available ? (
                         <Lock className="h-5 w-5 text-muted-foreground" />
                       ) : (
-                        <BookOpen className="h-5 w-5 text-primary" />
+                        <BookOpen className="h-5 w-5 text-blue-500" />
                       )}
                       <CardTitle className="text-lg">{task.title}</CardTitle>
                     </div>
                     <CardDescription>{task.description}</CardDescription>
                   </div>
                   <div className="text-right">
-                    <div className="flex items-center gap-1 text-accent">
-                      <Star className="h-4 w-4 fill-accent" />
+                    <div className="flex items-center gap-1 text-yellow-500">
+                      <Star className="h-4 w-4 fill-yellow-500" />
                       <span className="font-bold">{task.reward_points}</span>
                     </div>
                     <p className="text-xs text-muted-foreground capitalize">{task.difficulty}</p>
@@ -198,13 +199,13 @@ export default function Learning() {
                 {progress && !completed && available && (
                   <Button
                     onClick={() => completeTask(task.id, task.reward_points)}
-                    className="w-full bg-gradient-to-r from-primary to-primary-glow"
+                    className="w-full bg-gradient-to-r from-pink-500 via-blue-500 to-purple-500 hover:opacity-90"
                   >
                     Mark as Complete
                   </Button>
                 )}
                 {completed && (
-                  <div className="text-center py-2 text-accent font-medium">
+                  <div className="text-center py-2 text-pink-600 dark:text-pink-400 font-medium">
                     ✓ Completed! Next available in 24 hours
                   </div>
                 )}
@@ -214,9 +215,10 @@ export default function Learning() {
                   </div>
                 )}
               </CardContent>
-            </Card>
-          );
-        })}
+              </Card>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

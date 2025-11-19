@@ -63,7 +63,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { path: "/stories", icon: Sparkles, label: "Stories" },
     { path: "/games", icon: Gamepad2, label: "Games" },
     { path: "/community", icon: Users, label: "Community" },
-    { path: "/learning", icon: BookOpen, label: "Learning" },
+    { path: "/learning", icon: BookOpen, label: "Auratales" },
     { path: "/avatar", icon: User, label: "Avatar" },
   ];
 
