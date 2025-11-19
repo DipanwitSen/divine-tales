@@ -1,33 +1,12 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Trophy, Crown, Medal } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
-
-const games = [
-  {
-    id: "chess",
-    title: "Chess Challenge",
-    description: "Strategic thinking and planning",
-    emoji: "♟️",
-    comingSoon: true,
-  },
-  {
-    id: "sudoku",
-    title: "Sudoku Wisdom",
-    description: "Logic and concentration",
-    emoji: "🔢",
-    comingSoon: true,
-  },
-  {
-    id: "yoga",
-    title: "Yoga Poses",
-    description: "Mind-body harmony",
-    emoji: "🧘",
-    comingSoon: true,
-  },
-];
+import ChessGame from "@/components/games/ChessGame";
+import SudokuGame from "@/components/games/SudokuGame";
+import MemoryGame from "@/components/games/MemoryGame";
 
 export default function Games() {
   const { toast } = useToast();
@@ -76,25 +55,22 @@ export default function Games() {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {games.map((game) => (
-          <Card key={game.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="text-5xl mb-2">{game.emoji}</div>
-              <CardTitle>{game.title}</CardTitle>
-              <CardDescription>{game.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button
-                className="w-full"
-                disabled={game.comingSoon}
-              >
-                {game.comingSoon ? "Coming Soon" : "Play Now"}
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <Tabs defaultValue="chess" className="w-full">
+        <TabsList className="grid w-full grid-cols-3 max-w-md mx-auto">
+          <TabsTrigger value="chess">♟️ Chess</TabsTrigger>
+          <TabsTrigger value="sudoku">🔢 Sudoku</TabsTrigger>
+          <TabsTrigger value="memory">🎴 Memory</TabsTrigger>
+        </TabsList>
+        <TabsContent value="chess" className="mt-6">
+          <ChessGame />
+        </TabsContent>
+        <TabsContent value="sudoku" className="mt-6">
+          <SudokuGame />
+        </TabsContent>
+        <TabsContent value="memory" className="mt-6">
+          <MemoryGame />
+        </TabsContent>
+      </Tabs>
 
       <Card>
         <CardHeader>

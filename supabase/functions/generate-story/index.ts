@@ -35,13 +35,18 @@ serve(async (req) => {
       joyful: 'celebrating and feeling joyful'
     };
 
-    const systemPrompt = `You are a wise spiritual storyteller who draws wisdom from sacred texts. 
-Create meaningful, uplifting stories or poems that resonate with the reader's emotional state. 
-Keep stories concise (300-500 words) and meaningful. Include the source reference at the end.`;
+    const systemPrompt = `You are a warm-hearted storyteller. Generate a lovable, emotional story based on the user's mood.`;
 
     const userPrompt = `The reader is ${moodPrompts[mood] || 'seeking guidance'}. 
-Create an inspiring story or teaching from ${sourceMap[source] || 'sacred wisdom'} that speaks to this emotional state. 
-Make it personal, relatable, and transformative. Include a title.`;
+Generate a lovable story from ${sourceMap[source] || 'sacred wisdom'} that includes:
+• Relatable Indian characters with natural names
+• Gentle emotional tone
+• A moral lesson
+• Natural dialogues
+• Simple beautiful language
+
+Also add a 4-line short poem at the end based on the story theme.
+Story must be under 350 words. Include a title at the very beginning.`;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
